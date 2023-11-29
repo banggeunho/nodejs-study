@@ -1,7 +1,29 @@
-POST http://localhost:8080/users
+GET http://localhost:8080/products/6567672ff6c306384657a079
 Accept: application/json
+
+###
+GET http://localhost:8080/products
+Accept: application/json
+
+{
+  "name": "양푼냄비",
+  "description": "싱싱함",
+  "price": 500000
+}
+
+
+###
+PUT http://localhost:8080/products/6567684f59fb5537e1e42faa
 Content-Type: application/json
 
 {
-  "name1": "hani"
+  "name": "양푼냄비22",
+  "description": "싱싱함",
+  "price": 500000
 }
+
+###
+DELETE http://localhost:8080/products/6567684f59fb5537e1e42faa
+Content-Type: application/json
+
+

@@ -4,8 +4,12 @@ const HOST = '0.0.0.0';
 
 const usersRouter = require('./routes/users.route');
 const postsRouter = require('./routes/posts.route');
+const productsRouter = require('./routes/products.route');
+
+const {default:mongoose} = require('mongoose');
 
 const app = express();
+const path = require('path');
 
 //res.send() vs res.json() 차이
 //결과는 동일하다.
@@ -35,8 +39,18 @@ app.use((req, res, next) => {
     console.log(`${req.method} ${req.baseUrl}${req.url} ${req.ip}`);
 })
 
+const mongoURI = 'mongodb://newuser:newuserpassword@172.30.1.85:27017/your_database';
+mongoose.connect(mongoURI)
+    .then(() => console.log('mongodb connected'))
+    .catch((error) => console.log(error));
+
+app.set('view engine', 'hbs');
+app.set('views', path.join(__dirname, 'views'))
+
+app.use('/static', express.static(path.join(__dirname, 'public')));
 app.use('/users', usersRouter);
 app.use('/posts', postsRouter);
+app.use('/products', productsRouter);
 
 app.listen(PORT, HOST);
 console.log(`RUNNING on http://${HOST}:${PORT}`);
