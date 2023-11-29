@@ -1,0 +1,12 @@
+const express = require("express");
+const postsController = require("../controllers/posts.controller");
+const postsRouter = express.Router();
+
+
+
+
+
+
+postsRouter.get('/', postsController.getPosts);
+
+module.exports = postsRouter;
