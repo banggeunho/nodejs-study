@@ -39,6 +39,8 @@ app.use((req, res, next) => {
     console.log(`${req.method} ${req.baseUrl}${req.url} ${req.ip}`);
 })
 
+
+
 const mongoURI = 'mongodb://newuser:newuserpassword@172.30.1.85:27017/your_database';
 mongoose.connect(mongoURI)
     .then(() => console.log('mongodb connected'))
@@ -46,6 +48,15 @@ mongoose.connect(mongoURI)
 
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'))
+
+app.get('/', (req, res, next) => {
+    setImmediate(() => next(new Error("it is an error")));
+})
+
+// 에러 처리기
+app.use((err, req, res, next) => {
+    res.json({message: err.message});
+});
 
 app.use('/static', express.static(path.join(__dirname, 'public')));
 app.use('/users', usersRouter);
